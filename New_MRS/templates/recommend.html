@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Movies</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f5;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .movie-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .movie {
+            width: calc(15% - 10px);
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .movie img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .movie h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .movie {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .movie {
+                width: calc(100% - 20px);
+            }
+        }
+
+        .searched-movie-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .searched-movie {
+            display: inline-block;
+        }
+
+        .searched-movie img {
+            max-width: 100px;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Searched Movie</h1>    
+    <div class="searched-movie-container">
+        {% if searched_movie %}
+            <div class="searched-movie">
+                <h3>Searched Movie: {{ searched_movie }}</h3>
+                {% if searched_movie_poster %}
+                    <img src="{{ searched_movie_poster }}" alt="{{ searched_movie }} Poster">
+                {% else %}
+                    <p>No poster available</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+<h1>Recommended Movies</h1>
+    <div class="movie-list">
+        {% if recommended_movies %}
+            {% for movie, poster_url in recommended_movies %}
+                <div class="movie">
+                    <h3>{{ movie }}</h3>
+                    {% if poster_url %}
+                        <img src="{{ poster_url }}" alt="{{ movie }} Poster">
+                    {% else %}
+                        <p>No poster available</p>
+                    {% endif %}
+                </div>
+                {% if loop.index % 5 == 0 %}
+                    <div style="width: 100%;"></div>  <!-- Add a clear div after every 5th movie -->
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No recommendations available</p>
+        {% endif %}
+    </div>
+</body>
+</html>

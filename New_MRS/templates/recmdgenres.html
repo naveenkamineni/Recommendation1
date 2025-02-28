@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Movies based on genres</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+    
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        .movie-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content:space-around; /* Adjust alignment as needed */
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+        }
+    
+        .movie {
+            width: calc(20% - 10px); /* Adjusted for gap; may need fine-tuning */
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    
+        .movie img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    
+        .movie h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+    
+        @media screen and (max-width: 768px) {
+            .movie {
+                width: calc(50% - 20px);
+            }
+        }
+    
+        @media screen and (max-width: 480px) {
+            .movie {
+                width: calc(100% - 20px);
+            }
+        }
+    </style>
+    
+</head>
+<body>
+    {% if genre %}
+        <h1>Recommended Movies on {{ genre }}</h1> <!-- Dynamically display the genre -->
+    {% else %}
+        <h1>Recommended Movies</h1>
+    {% endif %}
+    <ul class="movie-list">
+        {% if recommended_movies %}
+            {% for movie, poster_url in recommended_movies %}
+                <li class="movie">
+                    <img src="{{ poster_url }}" alt="{{ movie }} Poster">
+                    <h3>{{ movie }}</h3>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>No recommendations available. Please select a genre or search for a movie.</p>
+        {% endif %}
+    </ul>
+</body>
+
+</html>
